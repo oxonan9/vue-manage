@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/devicedb?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: mysql04141015
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+manage:
+  jwt:
+    enabled: true
+    secret: fanffafw;asfkaweg
+    expiration: 3600000
+    header: JWTHeaderName
+    userParamName: username
+    pwdParamName: password
+    useDefaultController: true
+    corsAllowedOrigins:
+      - http://localhost:8080
+    corsAllowedMethods:
+      - GET
+      - POST
+    devOpeningURI:
+    permitAllURI:

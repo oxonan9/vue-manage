@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.dingjn</groupId>
+    <artifactId>vue-manage</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <!-- 因为是聚合工程，父工程不做任何业务逻辑，所以父工程声明为pom -->
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>manage-web</module>
+        <module>manage-common</module>
+        <module>manage-authentication</module>
+    </modules>
+
+    <properties>
+        <springboot.version>2.2.4.RELEASE</springboot.version>
+        <lombok.version>1.18.12</lombok.version>
+        <jjwt.version>0.9.0</jjwt.version>
+    </properties>
+
+    <!-- 管理子模块的依赖版本 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
