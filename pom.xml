@@ -14,12 +14,16 @@
         <module>manage-web</module>
         <module>manage-common</module>
         <module>manage-authentication</module>
+        <module>manage-persistence</module>
+        <module>manage-service</module>
+        <module>manage-model</module>
     </modules>
 
     <properties>
         <springboot.version>2.2.4.RELEASE</springboot.version>
         <lombok.version>1.18.12</lombok.version>
         <jjwt.version>0.9.0</jjwt.version>
+        <druid.version>1.1.21</druid.version>
     </properties>
 
     <!-- 管理子模块的依赖版本 -->
@@ -44,8 +48,41 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
 
+        <!--将java目录下的xml或者其他文件加载到classpath中-->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
 </project>

@@ -30,8 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authentication").permitAll() //不需要认证就能访问的接口
-                .anyRequest().authenticated();
+                .antMatchers("/authentication","/home","tree").permitAll(); //不需要认证就能访问的接口
 
     }
 

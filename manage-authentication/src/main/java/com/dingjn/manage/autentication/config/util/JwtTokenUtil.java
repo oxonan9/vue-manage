@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * @Auther: dingjn
  * @Desc: jwt工具类
@@ -32,20 +33,20 @@ public class JwtTokenUtil {
      * 生成token令牌
      *
      * @param userDetails 用户
-     * @param payloads 令牌中携带的附加信息
+     * @param payloads    令牌中携带的附加信息
      * @return 令token牌
      */
     public String generateToken(UserDetails userDetails,
-                                Map<String,String> payloads) {
-        int payloadSizes = payloads == null? 0 : payloads.size();
+                                Map<String, String> payloads) {
+        int payloadSizes = payloads == null ? 0 : payloads.size();
 
         Map<String, Object> claims = new HashMap<>(payloadSizes + 2);
         claims.put("sub", userDetails.getUsername());
         claims.put("created", new Date());
 
-        if(payloadSizes > 0){
-            for(Map.Entry<String,String> entry:payloads.entrySet()){
-                claims.put(entry.getKey(),entry.getValue());
+        if (payloadSizes > 0) {
+            for (Map.Entry<String, String> entry : payloads.entrySet()) {
+                claims.put(entry.getKey(), entry.getValue());
             }
         }
 
@@ -124,7 +125,7 @@ public class JwtTokenUtil {
      * @return 令牌
      */
     private String generateToken(Map<String, Object> claims) {
-        Date expirationDate = new Date(System.currentTimeMillis() + jwtProperties.getExpiration());
+        Date expirationDate = new Date(System.currentTimeMillis() + jwtProperties.getExpiration() * 1000);
         return Jwts.builder().setClaims(claims)
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS512, jwtProperties.getSecret())

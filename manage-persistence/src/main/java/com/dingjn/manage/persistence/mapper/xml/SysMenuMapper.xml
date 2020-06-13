@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingjn.manage.persistence.mapper.SysMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dingjn.manage.persistence.entity.SysMenu">
+        <id column="id" property="id" />
+        <result column="menu_pid" property="menuPid" />
+        <result column="menu_pids" property="menuPids" />
+        <result column="is_leaf" property="isLeaf" />
+        <result column="menu_name" property="menuName" />
+        <result column="url" property="url" />
+        <result column="icon" property="icon" />
+        <result column="sort" property="sort" />
+        <result column="level" property="level" />
+        <result column="status" property="status" />
+    </resultMap>
+</mapper>

@@ -43,12 +43,9 @@ public class ServerResponse<T> implements Serializable {
         this.data = data;
     }
 
-    public static <T> ServerResponse<T> success(String msg) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), msg);
-    }
 
     public static <T> ServerResponse<T> success(T data) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), data);
+        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(),ResponseCode.SUCCESS.getMsg(), data);
     }
 
     public static <T> ServerResponse<T> success(String msg, T data) {

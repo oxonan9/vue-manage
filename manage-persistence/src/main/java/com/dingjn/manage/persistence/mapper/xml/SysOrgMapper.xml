@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingjn.manage.persistence.mapper.SysOrgMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dingjn.manage.persistence.entity.SysOrg">
+        <id column="id" property="id"/>
+        <result column="org_pid" property="orgPid"/>
+        <result column="org_pids" property="orgPids"/>
+        <result column="is_leaf" property="isLeaf"/>
+        <result column="org_name" property="orgName"/>
+        <result column="address" property="address"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="sort" property="sort"/>
+        <result column="level" property="level"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selectOrgTree"
+            resultType="com.dingjn.manage.persistence.entity.SysOrg">
+        SELECT id,org_pid,org_pids,is_leaf,org_name,address,phone,email,sort,level,status
+        FROM sys_org o
+        <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+            AND (org_pids like CONCAT('%[',#{rootOrgId},']%') OR id = #{rootOrgId})
+            <if test="orgNameLike !=null and orgNameLike != '' ">
+                AND org_name like CONCAT('%',#{orgNameLike},'%')
+            </if>
+            <if test="orgStatus !=null ">
+                AND status = #{orgStatus}
+            </if>
+        </trim>
+        ORDER BY level,sort
+    </select>
+</mapper>

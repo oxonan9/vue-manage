@@ -11,7 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 enum ResponseCode {
 
-    SUCCESS(1, "success"),
+    SUCCESS(200, "success"),
     ERROR(0, "error");
 
     private int code;

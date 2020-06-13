@@ -1,8 +1,10 @@
 package com.dingjn.manage.autentication.config.controller;
 
+import com.dingjn.manage.autentication.config.service.JwtAuthService;
 import com.dingjn.manage.common.exception.CustomExceptionType;
 import com.dingjn.manage.common.response.ServerResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,11 +16,12 @@ import java.util.Map;
  * @Auther: dingjn
  * @Desc: 登录认证Controller
  */
+@CrossOrigin
 @RestController
 public class JwtAuthController {
 
     @Resource
-    private JwtAuthService jwtService;
+    private JwtAuthService jwtAuthService;
 
     @PostMapping("/authentication")
     public ServerResponse authentication(@RequestBody Map<String, String> map) {
@@ -32,6 +35,6 @@ public class JwtAuthController {
                     "用户名或密码不能为空");
         }
         //登录返回token
-        return ServerResponse.success(jwtService.login(username, password));
+        return ServerResponse.success(jwtAuthService.login(username, password));
     }
 }

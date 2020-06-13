@@ -1,23 +1,22 @@
 spring:
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/devicedb?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: mysql04141015
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+
 manage:
   jwt:
     enabled: true
-    secret: fanffafw;asfkaweg
-    expiration: 3600000
-    header: JWTHeaderName
-    userParamName: username
-    pwdParamName: password
-    useDefaultController: true
-    corsAllowedOrigins:
-      - http://localhost:8080
-    corsAllowedMethods:
-      - GET
-      - POST
-    devOpeningURI:
-    permitAllURI:
+    secret: fanffafw;asfkaweg # JWT\u79C1\u94A5\uFF0C\u7528\u4E8E\u6821\u9A8CJWT\u4EE4\u724C\u7684\u5408\u6CD5\u6027
+    expiration: 3600          # JWT\u4EE4\u724C\u7684\u6709\u6548\u671F \u79D2
+    header: JWTHeaderName     # HTTP\u8BF7\u6C42\u7684Header\u540D\u79F0\uFF0C\u8BE5Header\u4F5C\u4E3A\u53C2\u6570\u4F20\u9012JWT\u4EE4\u724C
+    userParamName: username   # \u7528\u6237\u767B\u5F55\u8BA4\u8BC1\u7528\u6237\u540D\u53C2\u6570\u540D\u79F0
+    pwdParamName: password    # \u7528\u6237\u767B\u5F55\u8BA4\u8BC1\u5BC6\u7801\u53C2\u6570\u540D\u79F0
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:com/dingjn/manage/persistence/mapper/**/*.xml

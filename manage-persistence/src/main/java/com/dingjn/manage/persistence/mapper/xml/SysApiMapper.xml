@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingjn.manage.persistence.mapper.SysApiMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dingjn.manage.persistence.entity.SysApi">
+        <id column="id" property="id" />
+        <result column="api_pid" property="apiPid" />
+        <result column="api_pids" property="apiPids" />
+        <result column="is_leaf" property="isLeaf" />
+        <result column="api_name" property="apiName" />
+        <result column="url" property="url" />
+        <result column="sort" property="sort" />
+        <result column="level" property="level" />
+        <result column="status" property="status" />
+    </resultMap>
+</mapper>
