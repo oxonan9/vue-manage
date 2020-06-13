@@ -10,3 +10,9 @@
     * [ElementUI]()()
     * [SpringSecurity]()
     * [MybatisPlus]()
+### 如果对以上技术不熟悉或者想回顾一下知识点，可以看下我的博客：
+    * [Vue]()(基础绑定语法、修饰符、组件、路由、脚手架)
+    * [Vuex]()()
+    * [ElementUI]()()
+    * [SpringSecurity]()
+    * [MybatisPlus]()
