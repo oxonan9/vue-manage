@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -39,6 +40,7 @@ public class SysOrg extends Model<SysOrg> {
     /**
      * 组织名
      */
+    @NotBlank(message = "组织名不能为空")
     private String orgName;
 
     /**
