@@ -2,6 +2,9 @@ package com.dingjn.manage.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dingjn.manage.persistence.entity.SysRoleApi;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import com.dingjn.manage.persistence.entity.SysRoleApi;
  * @since 2020-06-13
  */
 public interface SysRoleApiMapper extends BaseMapper<SysRoleApi> {
+    int saveApiPerm(@Param("roleId") Integer roleId, @Param("apiIds") List<Integer> apiIds);
 
 }

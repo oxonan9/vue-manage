@@ -1,6 +1,6 @@
 package com.dingjn.manage.service;
 
-import com.dingjn.manage.model.SysOrgNode;
+import com.dingjn.manage.model.node.SysOrgNode;
 import com.dingjn.manage.persistence.entity.SysOrg;
 
 import java.util.List;

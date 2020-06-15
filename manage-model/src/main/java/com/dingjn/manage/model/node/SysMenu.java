@@ -1,4 +1,4 @@
-package com.dingjn.manage.model;
+package com.dingjn.manage.model.node;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

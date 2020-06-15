@@ -3,11 +3,12 @@ package com.dingjn.manage.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dingjn.manage.common.exception.CustomException;
 import com.dingjn.manage.common.exception.CustomExceptionType;
-import com.dingjn.manage.common.util.DataTree;
 import com.dingjn.manage.common.util.DataTreeUtil;
-import com.dingjn.manage.model.SysMenuNode;
+import com.dingjn.manage.model.node.SysMenuNode;
 import com.dingjn.manage.persistence.entity.SysMenu;
+import com.dingjn.manage.persistence.entity.SysRoleMenu;
 import com.dingjn.manage.persistence.mapper.SysMenuMapper;
+import com.dingjn.manage.persistence.mapper.SysRoleMenuMapper;
 import com.dingjn.manage.service.SysMenuService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +28,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Resource
     SysMenuMapper sysMenuMapper;
+
+    @Resource
+    SysRoleMenuMapper sysRoleMenuMapper;
 
     @Override
     public List<SysMenuNode> getMenuTree(String orgNameLike, Boolean orgStatus) {
@@ -102,5 +106,31 @@ public class SysMenuServiceImpl implements SysMenuService {
             parent.setLeaf(true);
             sysMenuMapper.updateById(parent);
         }
+    }
+
+    @Override
+    public List<Integer> getDefauleExpandedKeys() {
+        //默认展开
+        QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("level", 2);
+        List<SysMenu> sysMenuList = sysMenuMapper.selectList(queryWrapper);
+        List<Integer> expandIdList = sysMenuList.stream().map(sysMenu -> sysMenu.getId()).collect(Collectors.toList());
+        return expandIdList;
+    }
+
+    @Override
+    public List<Integer> getDefaultCheckedKeys(Integer roleId) {
+        return sysRoleMenuMapper.getCheckKeys(roleId);
+    }
+
+    @Override
+    @Transactional
+    public void saveMenuPerm(Integer roleId, List<Integer> menuIds) {
+        //在添加之前需要先讲之前的权限删掉
+        QueryWrapper<SysRoleMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("role_id", roleId);
+        sysRoleMenuMapper.delete(queryWrapper);
+        //添加
+        sysRoleMenuMapper.saveMenuPerm(roleId, menuIds);
     }
 }

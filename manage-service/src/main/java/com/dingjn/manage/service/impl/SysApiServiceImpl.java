@@ -4,12 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dingjn.manage.common.exception.CustomException;
 import com.dingjn.manage.common.exception.CustomExceptionType;
 import com.dingjn.manage.common.util.DataTreeUtil;
-import com.dingjn.manage.model.SysApiNode;
-import com.dingjn.manage.model.SysApiNode;
+import com.dingjn.manage.model.node.SysApiNode;
 import com.dingjn.manage.persistence.entity.SysApi;
+import com.dingjn.manage.persistence.entity.SysMenu;
+import com.dingjn.manage.persistence.entity.SysRoleApi;
+import com.dingjn.manage.persistence.entity.SysRoleMenu;
 import com.dingjn.manage.persistence.mapper.SysApiMapper;
-import com.dingjn.manage.persistence.mapper.SysApiMapper;
-import com.dingjn.manage.service.SysApiService;
+import com.dingjn.manage.persistence.mapper.SysRoleApiMapper;
 import com.dingjn.manage.service.SysApiService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -29,6 +30,9 @@ public class SysApiServiceImpl implements SysApiService {
 
     @Resource
     SysApiMapper sysApiMapper;
+
+    @Resource
+    SysRoleApiMapper sysRoleApiMapper;
 
     @Override
     public List<SysApiNode> getApiTree(String apiNameLike, Boolean orgStatus) {
@@ -90,6 +94,23 @@ public class SysApiServiceImpl implements SysApiService {
         sysApiMapper.deleteById(id);
     }
 
+    @Override
+    public List<Integer> getDefauleExpandedKeys() {
+        //默认展开
+        QueryWrapper<SysApi> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("level", 2);
+        List<SysApi> sysMenuList = sysApiMapper.selectList(queryWrapper);
+        return sysMenuList.stream().map(SysApi -> SysApi.getId()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Integer> getDefaultCheckedKeys(Integer roleId) {
+        QueryWrapper<SysRoleApi> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("role_id", roleId);
+        List<SysRoleApi> sysRoleApiList = sysRoleApiMapper.selectList(queryWrapper);
+        return sysRoleApiList.stream().map(SysRoleApi::getApiId).collect(Collectors.toList());
+    }
+
     //设置它的父节点为叶子节点
     private void setParentLeaf(Integer menuPid) {
         //查询父节点有几个节点
@@ -103,5 +124,16 @@ public class SysApiServiceImpl implements SysApiService {
             parent.setLeaf(true);
             sysApiMapper.updateById(parent);
         }
+    }
+
+    @Override
+    @Transactional
+    public void saveApiPerm(Integer roleId, List<Integer> menuIds) {
+        //在添加之前需要先讲之前的权限删掉
+        QueryWrapper<SysRoleApi> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("role_id", roleId);
+        sysRoleApiMapper.delete(queryWrapper);
+        //添加
+        sysRoleApiMapper.saveApiPerm(roleId, menuIds);
     }
 }

@@ -8,4 +8,12 @@
         <result column="role_id" property="roleId" />
         <result column="api_id" property="apiId" />
     </resultMap>
+
+
+    <insert id="saveApiPerm">
+        INSERT INTO sys_role_api(role_id,api_id) VALUES
+        <foreach collection="apiIds" item="item" separator=",">
+            (#{roleId},#{item})
+        </foreach>
+    </insert>
 </mapper>

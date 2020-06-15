@@ -4,8 +4,23 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.dingjn.manage.persistence.entity.SysRoleMenu">
-        <id column="id" property="id" />
-        <result column="role_id" property="roleId" />
-        <result column="menu_id" property="menuId" />
+        <id column="id" property="id"/>
+        <result column="role_id" property="roleId"/>
+        <result column="menu_id" property="menuId"/>
     </resultMap>
+
+
+    <select id="getCheckKeys" resultType="int">
+        SELECT menu_id
+        FROM sys_role_menu
+        WHERE role_id = #{roleId}
+    </select>
+
+
+    <insert id="saveMenuPerm">
+        INSERT INTO sys_role_menu(role_id,menu_id) VALUES
+        <foreach collection="menuIds" item="item" separator=",">
+            (#{roleId},#{item})
+        </foreach>
+    </insert>
 </mapper>
