@@ -2,6 +2,9 @@ package com.dingjn.manage.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dingjn.manage.persistence.entity.SysApi;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.dingjn.manage.persistence.entity.SysApi;
  * @since 2020-06-13
  */
 public interface SysApiMapper extends BaseMapper<SysApi> {
-
+    List<SysApi> selectApiTree(@Param("rootApiId") Integer rootApiId,
+                               @Param("apiNameLike") String apiNameLike,
+                               @Param("apiStatus") Boolean apiStatus);
 }

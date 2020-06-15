@@ -26,7 +26,7 @@ public class SysOrgController {
     @Resource
     private SysUserService sysUserService;
 
-    @PostMapping(value = "/tree")
+    @PostMapping(value = "/getOrgTree")
     public ServerResponse tree(@RequestParam("username") String username,
                                @RequestParam("orgNameLike") String orgNameLike) {
         SysUser sysUser = sysUserService.getUserByUserName(username);

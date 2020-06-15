@@ -4,14 +4,31 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.dingjn.manage.persistence.entity.SysApi">
-        <id column="id" property="id" />
-        <result column="api_pid" property="apiPid" />
-        <result column="api_pids" property="apiPids" />
-        <result column="is_leaf" property="isLeaf" />
-        <result column="api_name" property="apiName" />
-        <result column="url" property="url" />
-        <result column="sort" property="sort" />
-        <result column="level" property="level" />
-        <result column="status" property="status" />
+        <id column="id" property="id"/>
+        <result column="api_pid" property="apiPid"/>
+        <result column="api_pids" property="apiPids"/>
+        <result column="is_leaf" property="isLeaf"/>
+        <result column="api_name" property="apiName"/>
+        <result column="url" property="url"/>
+        <result column="sort" property="sort"/>
+        <result column="level" property="level"/>
+        <result column="status" property="status"/>
     </resultMap>
+
+
+    <select id="selectApiTree"
+            resultType="com.dingjn.manage.persistence.entity.SysApi">
+        SELECT id,api_pid,api_pids,is_leaf,api_name,url,sort,level,status
+        FROM sys_api o
+        <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+            AND (api_pids like CONCAT('%[',#{rootApiId},']%') OR id = #{rootApiId})
+            <if test="apiNameLike !=null and apiNameLike != '' ">
+                AND api_name like CONCAT('%',#{apiNameLike},'%')
+            </if>
+            <if test="apiStatus != null  ">
+                AND status = #{apiStatus}
+            </if>
+        </trim>
+        ORDER BY level,sort
+    </select>
 </mapper>

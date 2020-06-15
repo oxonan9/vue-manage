@@ -2,6 +2,9 @@ package com.dingjn.manage.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dingjn.manage.persistence.entity.SysMenu;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,9 @@ import com.dingjn.manage.persistence.entity.SysMenu;
  * @since 2020-06-13
  */
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
+
+    List<SysMenu> selectMenuTree(@Param("rootMenuId") Integer rootMenuId ,
+                                 @Param("menuNameLike") String menuNameLike,
+                                 @Param("menuStatus") Boolean menuStatus);
 
 }

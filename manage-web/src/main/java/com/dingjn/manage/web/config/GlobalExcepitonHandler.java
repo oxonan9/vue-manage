@@ -19,7 +19,6 @@ public class GlobalExcepitonHandler {
 
     @ExceptionHandler(CustomException.class)
     public ServerResponse handle(CustomException e) {
-
         return ServerResponse.error(e.getCode(), e.getMessage());
     }
 
