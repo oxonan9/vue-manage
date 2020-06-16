@@ -1,7 +1,7 @@
 package com.dingjn.manage.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.dingjn.manage.model.node.vo.SysRoleVO;
+import com.dingjn.manage.model.vo.SysRoleVO;
 import com.dingjn.manage.persistence.entity.SysRole;
 import com.dingjn.manage.persistence.mapper.SysRoleMapper;
 import com.dingjn.manage.service.SysRoleService;

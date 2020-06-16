@@ -1,4 +1,4 @@
-package com.dingjn.manage.persistence.entity;
+package com.dingjn.manage.model.node;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -35,7 +35,7 @@ public class SysUser extends Model<SysUser> {
     /**
      * 组织id
      */
-    private Integer orgId = 4;
+    private Integer orgId;
 
     /**
      * 0无效用户，1是有效用户

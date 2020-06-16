@@ -3,7 +3,7 @@ package com.dingjn.manage.web.controller;
 import com.dingjn.manage.common.exception.CustomException;
 import com.dingjn.manage.common.exception.CustomExceptionType;
 import com.dingjn.manage.common.response.ServerResponse;
-import com.dingjn.manage.model.node.vo.PermVO;
+import com.dingjn.manage.model.vo.PermVO;
 import com.dingjn.manage.persistence.entity.SysApi;
 import com.dingjn.manage.service.SysApiService;
 import org.springframework.web.bind.annotation.*;
@@ -17,27 +17,27 @@ import java.util.Map;
  * @Auther: dingjn
  * @Desc:
  */
-@CrossOrigin
 @RestController
+@RequestMapping("/sysapi")
 public class SysApiController {
 
     @Resource
     private SysApiService sysApiService;
 
-    @PostMapping(value = "/getApiTree")
+    @PostMapping(value = "/tree")
     public ServerResponse tree(@RequestParam("apiNameLike") String apiNameLike) {
         return ServerResponse.success(sysApiService.getApiTree(apiNameLike, null));
     }
 
 
-    @PostMapping(value = "/saveApi")
+    @PostMapping(value = "/add")
     public ServerResponse saveOrg(@Valid @RequestBody SysApi sysApi) {
         sysApiService.saveApi(sysApi);
         return ServerResponse.success("保存接口信息成功！");
     }
 
 
-    @PostMapping(value = "/delApi")
+    @PostMapping(value = "/delete")
     public ServerResponse delOrg(@RequestParam("id") Integer id,
                                  @RequestParam("apiPid") Integer apiPid) {
         if (id == null || apiPid == null) {
@@ -47,7 +47,7 @@ public class SysApiController {
         return ServerResponse.success("删除接口信息成功！");
     }
 
-    @PostMapping(value = "/checkApiTree")
+    @PostMapping(value = "/checkedtree")
     public ServerResponse checkTree(@RequestParam("roleId") Integer roleId) {
         Map<String, Object> resultMap = new HashMap<>();
         // 1.获取全部的菜单树状数据
@@ -62,7 +62,7 @@ public class SysApiController {
     /**
      * 保存菜单权限.
      */
-    @PostMapping(value = "/saveApiPerm")
+    @PostMapping(value = "/savekeys")
     public ServerResponse<String> saveMenuPerm(@RequestBody PermVO permVO) {
         sysApiService.saveApiPerm(permVO.getRoleId(), permVO.getCheckKeys());
         return ServerResponse.success("保存菜单权限成功!");

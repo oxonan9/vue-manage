@@ -1,4 +1,4 @@
-package com.dingjn.manage.model.node.vo;
+package com.dingjn.manage.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

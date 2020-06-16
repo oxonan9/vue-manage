@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -26,12 +27,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private MyUserDetailService myUserDetailService;
 
+
+    @Resource
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/authentication", "/home", "tree").permitAll(); //不需要认证就能访问的接口
+                .antMatchers("/authentication").permitAll(); //不需要认证就能访问的接口
 
+        //全局控制接口Api的访问权限
+        http.authorizeRequests().anyRequest()
+                .access("@rabcService.hasPermission(request,authentication)");
     }
 
     @Override

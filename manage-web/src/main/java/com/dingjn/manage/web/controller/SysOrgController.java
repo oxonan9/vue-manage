@@ -16,8 +16,8 @@ import javax.validation.Valid;
  * @Auther: dingjn
  * @Desc:
  */
-@CrossOrigin
 @RestController
+@RequestMapping("/sysorg")
 public class SysOrgController {
 
     @Resource
@@ -26,22 +26,23 @@ public class SysOrgController {
     @Resource
     private SysUserService sysUserService;
 
-    @PostMapping(value = "/getOrgTree")
+    @PostMapping(value = "/tree")
     public ServerResponse tree(@RequestParam("username") String username,
                                @RequestParam("orgNameLike") String orgNameLike) {
+        //当前只能查看自己的部门和子节点的部门
         SysUser sysUser = sysUserService.getUserByUserName(username);
         return ServerResponse.success(sysOrgService.getOrgTreeById(sysUser.getOrgId(), orgNameLike, null));
 
     }
 
-    @PostMapping(value = "/saveOrg")
+    @PostMapping(value = "/add")
     public ServerResponse saveOrg(@Valid @RequestBody SysOrg sysOrg) {
         sysOrgService.saveOrg(sysOrg);
         return ServerResponse.success("保存组织机构成功！");
     }
 
 
-    @PostMapping(value = "/delOrg")
+    @PostMapping(value = "/delete")
     public ServerResponse delOrg(@RequestParam("id") Integer id,
                                  @RequestParam("orgPid") Integer orgPid) {
         if (id == null || orgPid == null) {

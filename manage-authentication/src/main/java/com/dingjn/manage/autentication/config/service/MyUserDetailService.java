@@ -31,22 +31,24 @@ public class MyUserDetailService implements UserDetailsService {
         //加载用户角色列表
         List<String> roleCodes = myUserDetailsServiceMapper.findRoleByUserName(username);
 
-        //通过用户角色列表加载用户的资源权限列表
-        List<String> authorties = myUserDetailsServiceMapper.findApiByRoleCodes(roleCodes);
+        if (roleCodes!=null&&roleCodes.size() > 0) {
+            //通过用户角色列表加载用户的资源权限列表
+            List<String> authorties = myUserDetailsServiceMapper.findApiByRoleCodes(roleCodes);
+            //角色是一个特殊的权限，ROLE_前缀
+            roleCodes = roleCodes.stream()
+                    .map(rc -> "ROLE_" + rc)
+                    .collect(Collectors.toList());
 
-        //角色是一个特殊的权限，ROLE_前缀
-        roleCodes = roleCodes.stream()
-                .map(rc -> "ROLE_" + rc)
-                .collect(Collectors.toList());
+            authorties.addAll(roleCodes);
 
-        authorties.addAll(roleCodes);
-
-        myUserDetails.setAuthorities(
-                AuthorityUtils.commaSeparatedStringToAuthorityList(
-                        String.join(",", authorties)
-                )
-        );
+            myUserDetails.setAuthorities(
+                    AuthorityUtils.commaSeparatedStringToAuthorityList(
+                            String.join(",", authorties)
+                    )
+            );
+        }
         return myUserDetails;
+
     }
 
 

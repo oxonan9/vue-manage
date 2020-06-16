@@ -1,6 +1,6 @@
 package com.dingjn.manage.service;
 
-import com.dingjn.manage.model.node.vo.SysRoleVO;
+import com.dingjn.manage.model.vo.SysRoleVO;
 import com.dingjn.manage.persistence.entity.SysRole;
 
 import java.util.List;

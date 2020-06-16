@@ -4,13 +4,44 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.dingjn.manage.persistence.entity.SysUser">
-        <id column="id" property="id" />
-        <result column="username" property="username" />
-        <result column="password" property="password" />
-        <result column="org_id" property="orgId" />
-        <result column="enabled" property="enabled" />
-        <result column="phone" property="phone" />
-        <result column="email" property="email" />
-        <result column="create_time" property="createTime" />
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="org_id" property="orgId"/>
+        <result column="enabled" property="enabled"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="create_time" property="createTime"/>
     </resultMap>
+
+    <select id="getUsers" parameterType="com.dingjn.manage.model.bo.SysUserBO"
+            resultType="com.dingjn.manage.model.vo.SysUserVO">
+        SELECT u.id,u.username,u.org_id,o.org_name,u.enabled,u.phone,u.email,u.create_time
+        FROM sys_user u
+        LEFT JOIN sys_org o ON u.org_id = o.id
+        <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+            <if test="username !=null and username != '' ">
+                AND u.username like CONCAT('%',#{username},'%')
+            </if>
+            <if test="phone !=null and phone != '' ">
+                AND u.phone like CONCAT('%',#{phone},'%')
+            </if>
+            <if test="email !=null and email != '' ">
+                AND u.email like CONCAT('%',#{email},'%')
+            </if>
+            <if test="enabled != null  ">
+                AND u.enabled = #{enabled}
+            </if>
+            <if test="createStartTime != null  and createEndTime != null ">
+                AND u.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+            <if test="orgId !=null and orgId != '' ">
+                AND (
+                o.org_pids like CONCAT('%',#{orgId},'%')
+                OR
+                o.id = #{orgId}
+                )
+            </if>
+        </trim>
+    </select>
 </mapper>

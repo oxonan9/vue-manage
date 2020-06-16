@@ -3,7 +3,7 @@ package com.dingjn.manage.web.controller;
 import com.dingjn.manage.common.exception.CustomException;
 import com.dingjn.manage.common.exception.CustomExceptionType;
 import com.dingjn.manage.common.response.ServerResponse;
-import com.dingjn.manage.model.node.vo.PermVO;
+import com.dingjn.manage.model.vo.PermVO;
 import com.dingjn.manage.persistence.entity.SysMenu;
 import com.dingjn.manage.service.SysMenuService;
 import org.springframework.web.bind.annotation.*;
@@ -17,27 +17,27 @@ import java.util.Map;
  * @Auther: dingjn
  * @Desc:
  */
-@CrossOrigin
 @RestController
+@RequestMapping("/sysmenu")
 public class SysMenuController {
 
     @Resource
     private SysMenuService sysMenuService;
 
-    @PostMapping(value = "/getMenuTree")
+    @PostMapping(value = "/tree")
     public ServerResponse tree(@RequestParam("menuNameLike") String menuNameLike) {
         return ServerResponse.success(sysMenuService.getMenuTree(menuNameLike, null));
     }
 
 
-    @PostMapping(value = "/saveMenu")
+    @PostMapping(value = "/add")
     public ServerResponse saveOrg(@Valid @RequestBody SysMenu sysMenu) {
         sysMenuService.saveMenu(sysMenu);
         return ServerResponse.success("保存菜单信息成功！");
     }
 
 
-    @PostMapping(value = "/delMenu")
+    @PostMapping(value = "/delete")
     public ServerResponse delOrg(@RequestParam("id") Integer id,
                                  @RequestParam("menuPid") Integer menuPid) {
         if (id == null || menuPid == null) {
@@ -47,7 +47,7 @@ public class SysMenuController {
         return ServerResponse.success("删除菜单信息成功！");
     }
 
-    @PostMapping(value = "/checkMenuTree")
+    @PostMapping(value = "/checkedtree")
     public ServerResponse checkTree(@RequestParam("roleId") Integer roleId) {
         Map<String, Object> resultMap = new HashMap<>();
         // 1.获取全部的菜单树状数据
@@ -62,7 +62,7 @@ public class SysMenuController {
     /**
      * 保存菜单权限.
      */
-    @PostMapping(value = "/saveMenuPerm")
+    @PostMapping(value = "/savekeys")
     public ServerResponse<String> saveMenuPerm(@RequestBody PermVO permMenuVO) {
         sysMenuService.saveMenuPerm(permMenuVO.getRoleId(), permMenuVO.getCheckKeys());
         return ServerResponse.success("保存菜单权限成功!");
