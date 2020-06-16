@@ -14,7 +14,7 @@
         <result column="create_time" property="createTime"/>
     </resultMap>
 
-    <select id="getUsers" parameterType="com.dingjn.manage.model.bo.SysUserBO"
+    <select id="getUsers" parameterType="com.dingjn.manage.model.dto.SysUserDTO"
             resultType="com.dingjn.manage.model.vo.SysUserVO">
         SELECT u.id,u.username,u.org_id,o.org_name,u.enabled,u.phone,u.email,u.create_time
         FROM sys_user u
@@ -44,4 +44,10 @@
             </if>
         </trim>
     </select>
+    <select id="getCheckedRoleIds" resultType="java.lang.Integer">
+          SELECT role_id
+          FROM sys_user_role ra
+          WHERE ra.user_id = #{userId};
+    </select>
+
 </mapper>

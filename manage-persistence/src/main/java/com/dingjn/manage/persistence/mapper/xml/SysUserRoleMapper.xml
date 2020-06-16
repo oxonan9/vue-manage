@@ -4,8 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.dingjn.manage.persistence.entity.SysUserRole">
-        <id column="id" property="id" />
-        <result column="role_id" property="roleId" />
-        <result column="user_id" property="userId" />
+        <id column="id" property="id"/>
+        <result column="role_id" property="roleId"/>
+        <result column="user_id" property="userId"/>
     </resultMap>
+
+    <insert id="saveRoles">
+        INSERT INTO sys_user_role(user_id,role_id) VALUES
+        <foreach collection="roleIds" item="item" separator=",">
+            (#{userId},#{item})
+        </foreach>
+    </insert>
 </mapper>

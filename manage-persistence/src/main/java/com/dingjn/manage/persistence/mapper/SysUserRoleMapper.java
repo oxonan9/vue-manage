@@ -2,6 +2,9 @@ package com.dingjn.manage.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dingjn.manage.persistence.entity.SysUserRole;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.dingjn.manage.persistence.entity.SysUserRole;
  * @since 2020-06-13
  */
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
+
+    void saveRoles(@Param("userId") Integer userId, @Param("roleIds") List<Integer> roleIds);
 
 }

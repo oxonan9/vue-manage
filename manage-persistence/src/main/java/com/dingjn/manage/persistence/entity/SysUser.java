@@ -35,7 +35,7 @@ public class SysUser extends Model<SysUser> {
     /**
      * 组织id
      */
-    private Integer orgId = 4;
+    private Integer orgId;
 
     /**
      * 0无效用户，1是有效用户

@@ -13,6 +13,7 @@ import com.dingjn.manage.persistence.mapper.SysApiMapper;
 import com.dingjn.manage.persistence.mapper.SysRoleApiMapper;
 import com.dingjn.manage.service.SysApiService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
  * @Desc:
  */
 @Service
+@Mapper
 public class SysApiServiceImpl implements SysApiService {
 
     @Resource

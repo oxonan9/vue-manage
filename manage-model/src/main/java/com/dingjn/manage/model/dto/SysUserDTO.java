@@ -1,4 +1,4 @@
-package com.dingjn.manage.model.bo;
+package com.dingjn.manage.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SysUserBO {
+public class SysUserDTO {
     Integer orgId;
     String username;
     String phone;

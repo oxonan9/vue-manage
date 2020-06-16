@@ -1,14 +1,14 @@
 package com.dingjn.manage.web.controller;
 
 import com.dingjn.manage.common.response.ServerResponse;
-import com.dingjn.manage.model.bo.SysUserBO;
+import com.dingjn.manage.model.dto.SysUserDTO;
+import com.dingjn.manage.model.dto.SysUserRoleDTO;
 import com.dingjn.manage.model.vo.SysUserVO;
 import com.dingjn.manage.persistence.entity.SysUser;
 import com.dingjn.manage.service.SysUserService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @Auther: dingjn
@@ -22,7 +22,7 @@ public class SysUserController {
     SysUserService sysUserService;
 
     @GetMapping("/query")
-    public ServerResponse<List<SysUserVO>> getUsers(SysUserBO sysUserBO) {
+    public ServerResponse<PageInfo<SysUserVO>> getUsers(SysUserDTO sysUserBO) {
         return ServerResponse.success(sysUserService.getUsers(sysUserBO));
     }
 
@@ -38,4 +38,17 @@ public class SysUserController {
         sysUserService.deleteUser(userId);
         return ServerResponse.success("删除用户成功!");
     }
+
+
+    @GetMapping("/checkedroles")
+    public ServerResponse currentRole(@RequestParam("userId") Integer userId) {
+        return ServerResponse.success(sysUserService.getCheckedRoles(userId));
+    }
+
+    @PostMapping("/saveroles")
+    public ServerResponse saveRoles(@RequestBody SysUserRoleDTO sysUserRoleDTO) {
+        sysUserService.saveRoles(sysUserRoleDTO);
+        return ServerResponse.success("分配角色成功!");
+    }
+
 }
