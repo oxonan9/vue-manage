@@ -54,24 +54,28 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+        //1.获取前端传递Tokean
         String jwtToken = request.getHeader(jwtProperties.getHeader());
+        //2.判断Token是否为空
         if (!StringUtils.isEmpty(jwtToken)) {
+            //3.解析token，获取到用户的username
             String username = jwtTokenUtil.getUsernameFromToken(jwtToken);
 
             if (username != null &&
                     SecurityContextHolder.getContext().getAuthentication() == null) {
+                //4.根据username查询用户的信息
                 UserDetails userDetails = myUserDetailService.loadUserByUsername(username);
+                //5.判断token是否有效
                 if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-                    //给使用该JWT令牌的用户进行授权
+                    //6.给使用该JWT令牌的用户进行授权
                     UsernamePasswordAuthenticationToken authenticationToken
                             = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
-
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
             }
         }
-
+        //如果token为空直接放行
         filterChain.doFilter(request, response);
     }
 }

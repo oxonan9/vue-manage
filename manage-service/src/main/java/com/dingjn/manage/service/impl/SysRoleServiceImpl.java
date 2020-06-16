@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc: 权限管理Service实现类
  */
 @Service
 public class SysRoleServiceImpl implements SysRoleService {

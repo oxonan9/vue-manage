@@ -15,7 +15,6 @@ import java.util.Map;
  * @Auther: dingjn
  * @Desc: jwt工具类
  */
-
 @Component
 public class JwtTokenUtil {
 
@@ -112,7 +111,6 @@ public class JwtTokenUtil {
      * @return 是否有效
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
-
         String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

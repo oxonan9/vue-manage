@@ -24,10 +24,9 @@ import java.util.stream.Collectors;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc: 接口管理Service实现类
  */
 @Service
-@Mapper
 public class SysApiServiceImpl implements SysApiService {
 
     @Resource
@@ -43,9 +42,7 @@ public class SysApiServiceImpl implements SysApiService {
         queryWrapper.eq("level", 1);
         SysApi sysMenu = sysApiMapper.selectOne(queryWrapper);
 
-
         List<SysApi> sysMenuList = sysApiMapper.selectApiTree(sysMenu.getApiPid(), apiNameLike, null);
-
         List<SysApiNode> sysMenuNodeList = sysMenuList.stream().map(menu -> {
             SysApiNode sysMenuNode = new SysApiNode();
             BeanUtils.copyProperties(menu, sysMenuNode);

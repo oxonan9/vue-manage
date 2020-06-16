@@ -20,4 +20,6 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
                                  @Param("menuNameLike") String menuNameLike,
                                  @Param("menuStatus") Boolean menuStatus);
 
+    List<SysMenu> selectMenuByUsername(@Param("username") String username );
+
 }

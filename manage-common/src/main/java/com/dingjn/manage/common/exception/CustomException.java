@@ -1,5 +1,10 @@
 package com.dingjn.manage.common.exception;
 
+
+/**
+ * @Auther: dingjn
+ * @Desc: 自定义异常
+ */
 public class CustomException extends RuntimeException {
     //异常错误编码
     private int code ;

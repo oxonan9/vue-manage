@@ -5,6 +5,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+
+/**
+ * 用户信息
+ * 这里的用户信息是包括权限集合等信息的，后面需要进行校验，和数据库的不是一个.
+ */
 public class MyUserDetails implements UserDetails {
 
     String password; //密码

@@ -3,6 +3,7 @@ package com.dingjn.manage.web.controller;
 import com.dingjn.manage.common.exception.CustomException;
 import com.dingjn.manage.common.exception.CustomExceptionType;
 import com.dingjn.manage.common.response.ServerResponse;
+import com.dingjn.manage.model.node.SysMenuNode;
 import com.dingjn.manage.model.vo.PermVO;
 import com.dingjn.manage.persistence.entity.SysMenu;
 import com.dingjn.manage.service.SysMenuService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,5 +68,11 @@ public class SysMenuController {
     public ServerResponse<String> saveMenuPerm(@RequestBody PermVO permMenuVO) {
         sysMenuService.saveMenuPerm(permMenuVO.getRoleId(), permMenuVO.getCheckKeys());
         return ServerResponse.success("保存菜单权限成功!");
+    }
+
+
+    @PostMapping(value = "/tree/user")
+    public ServerResponse usertree(@RequestParam("username") String username) {
+        return ServerResponse.success(sysMenuService.getMenuTreeByUsername(username));
     }
 }

@@ -13,14 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan(basePackages = {"com.dingjn.manage.**.dao.mapper"}) //扫描该包下的Mapper类
 public class MybatisPlusConfig {
-
-    @Bean
-    public DruidDataSource dataSource(DruidProperties druidProperties) {
-        DruidDataSource dataSource = new DruidDataSource();
-        druidProperties.config(dataSource);
-        return dataSource;
-    }
-
     /**
      * mybatis-plus分页插件
      */

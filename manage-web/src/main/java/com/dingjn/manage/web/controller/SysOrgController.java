@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc:   组织管理Api
  */
 @RestController
 @RequestMapping("/sysorg")

@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExcepitonHandler {
 
+    /**
+     * 自定义异常.
+     */
     @ExceptionHandler(CustomException.class)
     public ServerResponse handle(CustomException e) {
         return ServerResponse.error(e.getCode(), e.getMessage());

@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc: 用户管理Service实现类
  */
 @Service
 public class SysUserServiceImpl implements SysUserService {
@@ -40,6 +40,14 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     SysUserRoleMapper sysUserRoleMapper;
 
+    /**
+     * 密码加密处理.
+     */
+    @Resource
+    private PasswordEncoder passwordEncoder;
+
+
+
     @Override
     public SysUser getUserByUserName(String userName) {
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
@@ -52,18 +60,12 @@ public class SysUserServiceImpl implements SysUserService {
         PageHelper.startPage(sysUserBO.getPageNum(), sysUserBO.getPageSize());
         List<SysUserVO> userVOList = sysUserMapper.getUsers(sysUserBO);
         return PageInfo.of(userVOList);
-
     }
-
-
-    @Resource
-    private PasswordEncoder passwordEncoder;
-
 
     @Override
     public void saveUser(SysUser sysuser) {
         if (sysuser.getId() == null) {
-            //TODO 初始密码可以优化为通用配置
+            //TODO 初始密码优化为通用配置
             sysuser.setPassword(passwordEncoder.encode("123456"));
             sysuser.setCreateTime(LocalDateTime.now());  //创建时间
             sysuser.setEnabled(true); //新增用户激活

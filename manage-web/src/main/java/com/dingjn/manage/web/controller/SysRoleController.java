@@ -11,9 +11,8 @@ import java.util.List;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc: 角色管理Api
  */
-@CrossOrigin
 @RestController
 @RequestMapping("/sysrole")
 public class SysRoleController {

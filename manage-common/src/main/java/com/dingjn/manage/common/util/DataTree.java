@@ -4,17 +4,19 @@ import java.util.List;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc: 树状数据接口，因为有很多需要返回树状
  */
 public interface DataTree<T> {
-    //维护树形关系：元素一id
+    //元素的Id
     Integer getId();
 
-    //维护树形关系：元素二父id
-    public Integer getParentId();
+    //元素的父Id
+    //父id字段可能叫不同的名字，pid或parentId或org_pid等，
+    //这里适配一下，统一为使用getParentId，获取父id数据
+    Integer getParentId();
 
-    //子节点数组
-    public void setChildren(List<T> children);
+    //子节点集合
+    void setChildren(List<T> children);
 
-    public List<T> getChildren();
+    List<T> getChildren();
 }

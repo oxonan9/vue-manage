@@ -7,10 +7,13 @@ import java.util.List;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc: 组织管理Service
  */
 public interface SysOrgService {
 
+    /**
+     * 获取组织信息 树状.
+     */
     List<SysOrgNode> getOrgTreeById(Integer rootOrgId,
                                     String orgNameLike,
                                     Boolean orgStatus);

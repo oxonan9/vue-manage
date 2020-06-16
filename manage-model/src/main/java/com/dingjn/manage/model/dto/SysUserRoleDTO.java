@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc: 为用户分配角色的传输类
  */
 @Data
 @AllArgsConstructor

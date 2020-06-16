@@ -15,13 +15,12 @@ import java.util.Map;
  * @Desc: 登录认证Controller
  */
 @CrossOrigin
-@Controller
+@RestController
 public class JwtAuthController {
 
     @Resource
     private JwtAuthService jwtAuthService;
 
-    @ResponseBody
     @PostMapping("/authentication")
     public ServerResponse authentication(@RequestBody Map<String, String> map) {
         //获取用户名和密码
@@ -35,5 +34,14 @@ public class JwtAuthController {
         }
         //登录返回token
         return ServerResponse.success(jwtAuthService.login(username, password));
+    }
+
+
+    /**
+     * 刷新JWT令牌
+     */
+    @RequestMapping(value = "/refreshtoken")
+    public ServerResponse refresh(@RequestHeader("JWTHeaderName") String token) {
+        return ServerResponse.success(jwtAuthService.refreshToken(token));
     }
 }

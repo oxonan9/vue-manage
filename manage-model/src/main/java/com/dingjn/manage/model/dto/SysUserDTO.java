@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc:  查询用户的传输类
  */
 @Data
 @AllArgsConstructor

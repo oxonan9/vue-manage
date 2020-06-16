@@ -12,27 +12,30 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+
+/**
+ * @Auther: dingjn
+ * @Desc: 全局进行权限控制，判断用户访问某个url有没有权限
+ */
 @Component("rabcService")
 public class MyRBACService {
-
-    private AntPathMatcher antPathMatcher = new AntPathMatcher();
-
-    @Resource
-    private JwtProperties jwtProperties;
 
     /**
      * 判断某用户是否具有该request资源的访问权限
      */
-    public boolean hasPermission(HttpServletRequest request, Authentication authentication){
+    public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
 
-        //获取当前用户信息
+        //1。获取当前用户信息
         Object principal = authentication.getPrincipal();
 
-        if(principal instanceof UserDetails){
-
-            UserDetails userDetails = ((UserDetails)principal);
+        //2.判断当前用户属不属于UserDetails，也就是他有没有认证通过
+        if (principal instanceof UserDetails) {
+            //3.获取请求的Url
             List<GrantedAuthority> authorityList =
                     AuthorityUtils.commaSeparatedStringToAuthorityList(request.getRequestURI());
+            UserDetails userDetails = ((UserDetails) principal);
+
+            //4.userDetails.getAuthorities()获取用户的权限列表，判断是否包含请求的url
             return userDetails.getAuthorities().contains(authorityList.get(0));
         }
 

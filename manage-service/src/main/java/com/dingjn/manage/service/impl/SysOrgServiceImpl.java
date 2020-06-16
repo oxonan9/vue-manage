@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc: 组织管理Service实现类
  */
 @Service
 public class SysOrgServiceImpl implements SysOrgService {

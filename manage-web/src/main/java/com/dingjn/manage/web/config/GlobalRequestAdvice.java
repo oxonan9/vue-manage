@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @Auther: dingjn
+ * @Desc: 对日期空字符串全局处理
+ */
 @ControllerAdvice
 public class GlobalRequestAdvice {
 

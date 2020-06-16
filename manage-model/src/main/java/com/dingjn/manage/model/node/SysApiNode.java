@@ -15,9 +15,6 @@ public class SysApiNode extends SysApi implements DataTree<SysApiNode> {
 
     @Override
     public Integer getParentId() {
-        //因为不同的人设计model或者数据库，
-        //父id字段叫不同的名字，pid或parentId或org_pid等，
-        //这里适配一下，统一为使用getParentId，获取父id数据
         return super.getApiPid();
     }
 

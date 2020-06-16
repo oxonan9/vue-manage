@@ -5,19 +5,24 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+
 /**
  * @Auther: dingjn
  * @Desc: 用户信息Mapper
  */
 public interface MyUserDetailsServiceMapper {
 
-    //根据userID查询用户信息
+    /**
+     * 根据userID查询用户信息.
+     */
     @Select("SELECT username,password,enabled\n" +
             "FROM sys_user u\n" +
             "WHERE u.username = #{userId} or u.phone = #{userId}")
     MyUserDetails findByUserName(@Param("userId") String userId);
 
-    //根据userID查询用户角色列表
+    /**
+     * 根据userID查询用户角色列表.
+     */
     @Select("SELECT role_code\n" +
             "FROM sys_role r\n" +
             "LEFT JOIN sys_user_role ur ON r.id = ur.role_id\n" +
@@ -26,7 +31,9 @@ public interface MyUserDetailsServiceMapper {
     List<String> findRoleByUserName(@Param("userId") String userId);
 
 
-    //根据用户角色查询用户菜单权限
+    /**
+     * 根据用户角色查询用户菜单权限.
+     */
     @Select({
             "<script>",
             "SELECT url ",
@@ -42,7 +49,9 @@ public interface MyUserDetailsServiceMapper {
     List<String> findMenuByRoleCodes(@Param("roleCodes") List<String> roleCodes);
 
 
-    //根据用户角色查询用户接口访问权限
+    /**
+     * 根据用户角色查询用户接口访问权限.
+     */
     @Select({
             "<script>",
             "SELECT url ",

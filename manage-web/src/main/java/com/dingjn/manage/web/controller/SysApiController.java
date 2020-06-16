@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * @Auther: dingjn
- * @Desc:
+ * @Desc:  接口管理Api
  */
 @RestController
 @RequestMapping("/sysapi")

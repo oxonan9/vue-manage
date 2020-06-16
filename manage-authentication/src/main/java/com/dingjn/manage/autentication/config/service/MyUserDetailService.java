@@ -15,32 +15,32 @@ import java.util.stream.Collectors;
 
 /**
  * @Auther: dingjn
- * @Desc: 动态加载用户信息
+ * @Desc: 动态加载用户信息，用户登录后会先访问这个接口拿到用户信息，然后再去认证
  */
 @Component
 public class MyUserDetailService implements UserDetailsService {
     @Resource
     private MyUserDetailsServiceMapper myUserDetailsServiceMapper;
 
-    //加载基础用户信息
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        //加载基础用户信息
+        //1.加载基础用户信息
         MyUserDetails myUserDetails = myUserDetailsServiceMapper.findByUserName(username);
 
-        //加载用户角色列表
+        //2.加载用户角色列表
         List<String> roleCodes = myUserDetailsServiceMapper.findRoleByUserName(username);
 
         if (roleCodes!=null&&roleCodes.size() > 0) {
-            //通过用户角色列表加载用户的资源权限列表
+            //3.通过用户角色列表加载用户的资源权限列表
             List<String> authorties = myUserDetailsServiceMapper.findApiByRoleCodes(roleCodes);
-            //角色是一个特殊的权限，ROLE_前缀
+            //4.角色是一个特殊的权限，SpringSecurity规定对于角色需要加上ROLE_前缀
             roleCodes = roleCodes.stream()
                     .map(rc -> "ROLE_" + rc)
                     .collect(Collectors.toList());
 
             authorties.addAll(roleCodes);
 
+            //5.将用户权限列表赋给用户信息
             myUserDetails.setAuthorities(
                     AuthorityUtils.commaSeparatedStringToAuthorityList(
                             String.join(",", authorties)
