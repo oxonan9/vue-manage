@@ -18,23 +18,23 @@ public class ServerResponse<T> implements Serializable {
     /* 状态码 */
     private int status;
     /* 消息 */
-    private String msg;
+    private String message;
     /* 实体 */
     private T data;
 
-    public ServerResponse(int status, String msg, T data) {
+    public ServerResponse(int status, String message, T data) {
         this.status = status;
-        this.msg = msg;
+        this.message = message;
         this.data = data;
     }
 
-    public ServerResponse(int status, String msg) {
+    public ServerResponse(int status, String message) {
         this.status = status;
-        this.msg = msg;
+        this.message = message;
     }
 
-    public ServerResponse(String msg, T data) {
-        this.msg = msg;
+    public ServerResponse(String message, T data) {
+        this.message = message;
         this.data = data;
     }
 
@@ -48,20 +48,20 @@ public class ServerResponse<T> implements Serializable {
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(),ResponseCode.SUCCESS.getMsg(), data);
     }
 
-    public static <T> ServerResponse<T> success(String msg, T data) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), msg, data);
+    public static <T> ServerResponse<T> success(String message, T data) {
+        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), message, data);
     }
 
-    public static <T> ServerResponse<T> error(int status, String msg) {
-        return new ServerResponse<T>(status, msg);
+    public static <T> ServerResponse<T> error(int status, String message) {
+        return new ServerResponse<T>(status, message);
     }
 
-    public static <T> ServerResponse<T> error(String msg) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), msg);
+    public static <T> ServerResponse<T> error(String message) {
+        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), message);
     }
 
-    public static <T> ServerResponse<T> error(CustomExceptionType type, String msg) {
-        return new ServerResponse<T>(type.getCode(), msg);
+    public static <T> ServerResponse<T> error(CustomExceptionType type, String message) {
+        return new ServerResponse<T>(type.getCode(), message);
     }
 
     /**

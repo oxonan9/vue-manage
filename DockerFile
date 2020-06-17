@@ -1,0 +1,11 @@
+FROM java:8
+
+COPY *.jar /vuemanage.jar
+
+CMD ["--server.port=8080"]
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","/vuemanage.jar"]
+
+CMD echo "---end---"

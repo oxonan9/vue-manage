@@ -42,7 +42,7 @@ public class JwtAuthService {
             //3.将主体加载到上下文中，下次会从上下文获取认证状态，避免重复认证
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (AuthenticationException e) {
-            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "用户名或密码输入错误");
+             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "用户名或密码输入错误");
         }
         //4.返回用户信息
         UserDetails userDetails = myUserDetailService.loadUserByUsername(username);

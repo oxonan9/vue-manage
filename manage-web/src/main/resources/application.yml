@@ -1,7 +1,5 @@
 server:
-  port: 8090    #服务端口
-
-
+  port: 8080    #服务端口
 
 ####################
 # Spring 配置
@@ -21,7 +19,7 @@ spring:
 manage:
   jwt:
     secret: fanffafw;asfkaweg # token密钥
-    expiration: 60            # token过期时间 秒
+    expiration: 3600            # token过期时间 秒
     header: JWTHeaderName     # HearName用于接受前端传递的token
 
 
