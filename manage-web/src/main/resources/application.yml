@@ -7,9 +7,9 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource  #数据源配置
-    url: jdbc:mysql://localhost:3306/devicedb?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/vuemanage?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: mysql04141015
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
