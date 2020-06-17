@@ -1,9 +1,20 @@
 ## 项目介绍
 
-**一个基于Vue + Element UI 开发的权限管理系统**
+**一个基于SpringBoo + Vue + Element UI 开发的权限管理系统**
 
 - 角色权限精确到菜单、接口访问
 - 前后端通过jwt进行认证状态管理
+
+```markdown
+manage-authentication -- 登录认证、授权模块
+manage-common         -- 公共模块
+manage-model					-- Model层
+manage-persistence    -- 持久层
+manage-service				-- 服务层
+manage-web						-- 访问层
+vue-manage-front			-- 前端项目
+sql										-- sql文件
+```
 
 ## 技术栈
 
